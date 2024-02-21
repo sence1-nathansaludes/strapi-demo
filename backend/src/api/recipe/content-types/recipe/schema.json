@@ -1,0 +1,69 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recipes",
+  "info": {
+    "singularName": "recipe",
+    "pluralName": "recipes",
+    "displayName": "Recipe",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": false
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "preparation_time": {
+      "type": "integer",
+      "required": true
+    },
+    "preparation_time_total": {
+      "type": "integer",
+      "required": true
+    },
+    "preparation_time_cooking": {
+      "type": "integer",
+      "required": true
+    },
+    "calories": {
+      "type": "integer",
+      "required": true
+    },
+    "carbs": {
+      "type": "integer",
+      "required": true
+    },
+    "protein": {
+      "type": "integer",
+      "required": true
+    },
+    "fat": {
+      "type": "integer",
+      "required": true
+    },
+    "ingredients": {
+      "type": "richtext",
+      "required": true
+    },
+    "instructions": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}

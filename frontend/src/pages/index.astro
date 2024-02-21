@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro"
+
+const response = await fetch("http://localhost:3000/api/recipes")
+const { data, error } = await response.json()
+---
+
+<Layout title="Strapi Demo">
+  <section class="flex justify-center">
+    <div class="w-full max-w-[768px] py-20">
+      <h1 class="mb-5 w-full font-serif text-3xl font-semibold">My Recipes</h1>
+      {
+        !error && data ? (
+          <ul class="m-0 w-full list-none">
+            {data.map((recipe: any) => (
+              <li class="font-serif text-2xl font-normal hover:opacity-60">
+                <a href={`/recipe/${recipe.id}`}>{recipe.attributes.name}</a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          error
+        )
+      }
+    </div>
+  </section>
+</Layout>
