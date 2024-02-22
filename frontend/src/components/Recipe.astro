@@ -1,13 +1,29 @@
 ---
 import { marked } from "marked"
 
+// access component props
 const { id } = Astro.props
-const response = await fetch(`http://localhost:3000/api/recipes/${id}?populate=*`)
-const { data, error } = await response.json()
+
+let data = {}
+let error_message = null
+
+try {
+  const response = await fetch(`http://localhost:3000/api/recipes/${id}?populate=*`)
+  const res_json = await response.json()
+
+  if (res_json.error) {
+    error_message =
+      res_json.error.name === "NotFoundError" ? "Recipe not found." : "There's something wrong in the server."
+  } else {
+    data = res_json.data
+  }
+} catch (error) {
+  console.log(error)
+}
 ---
 
 {
-  !error && data ? (
+  !error_message && data ? (
     <div class="max-w-[736px] rounded-[30px] bg-white p-10 text-left shadow-lg">
       {data.attributes.image.data.attributes.url ? (
         <img
@@ -82,4 +98,4 @@ const { data, error } = await response.json()
 }
 
 <!-- print errors -->
-{error ? error.message : null}
+{error_message}
