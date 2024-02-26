@@ -1,14 +1,15 @@
 ---
+import type { GetStaticPaths } from "astro"
 import { marked } from "marked"
 
 // access component props
 const { id } = Astro.props
 
-let data = {}
+let data = null
 let error_message = null
 
 try {
-  const response = await fetch(`http://localhost:3000/api/recipes/${id}?populate=*`)
+  const response = await fetch(`${import.meta.env.STRAPI_BASE_URL}/api/recipes/${id}?populate=*`)
   const res_json = await response.json()
 
   if (res_json.error) {
@@ -27,13 +28,13 @@ try {
     <div class="max-w-[736px] rounded-[30px] bg-white p-10 text-left shadow-lg">
       {data.attributes.image.data.attributes.url ? (
         <img
-          src={`http://localhost:3000${data.attributes.image.data.attributes.url}`}
+          src={`${import.meta.env.STRAPI_BASE_URL}${data.attributes.image.data.attributes.url}`}
           alt={data.attributes.name}
           class="h-[300px] w-full rounded-[10px] bg-gray-100 object-cover"
         />
       ) : (
         <img
-          src={`http://localhost:3000${data.attributes.image.data.attributes.url}`}
+          src={`${import.meta.env.STRAPI_BASE_URL}${data.attributes.image.data.attributes.url}`}
           alt={data.attributes.name}
           class="h-[300px] w-full rounded-[10px] bg-gray-100 object-cover"
         />
