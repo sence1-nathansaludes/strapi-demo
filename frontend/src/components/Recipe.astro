@@ -1,5 +1,4 @@
 ---
-import type { GetStaticPaths } from "astro"
 import { marked } from "marked"
 
 // access component props
@@ -21,6 +20,8 @@ try {
 } catch (error) {
   console.log(error)
 }
+
+export const prerender = false
 ---
 
 {
